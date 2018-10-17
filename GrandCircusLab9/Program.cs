@@ -40,15 +40,12 @@ namespace GrandCircusLab9
             };
             
 
-
-
-
             //stored student info in a list collection
 
             List<string[]> studentList = new List<string[]>
             {
 
-                new string[] { "Jack Bowen", "Detroit", "Pizza"},
+                new string[] { "Jack Bowen", "Detroit", "Pizza" },
 
                 new string[] { "Heather Saunders", "Detroit", "Tacos" },
 
@@ -90,45 +87,21 @@ namespace GrandCircusLab9
 
             };
 
-
-
-
+            
   
-
-            int location = 0;
+            int location = -1;
 
             while (true)
-
             {
-                while (true)
+                while (location < 0)
                 {
                     Console.WriteLine("Welcome to class. Which student would you like to learn more about?\n(Enter a number 1-{0})", studentList.Count);
 
-                    //format handling
-                    try
-                    {
-                        location = Int32.Parse(Console.ReadLine());
+                    //exception handling method
+                    location = ErrorChecking(studentList);
 
-                    }
-                    catch (FormatException)
-                    {
-                        Console.WriteLine("Please only enter a number!\n\n");
-                        continue;
-                    }
-
-                    //range handling
-                    try
-                    {
-                        string test = studentList[0][0];
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        Console.WriteLine("Student does not exist!\n\n");
-                        continue;
-                    }
-
-                    break;
                 }
+
 
                 Console.Clear();
 
@@ -156,18 +129,26 @@ namespace GrandCircusLab9
                 if(answer == 'c' || answer == 'C')
                 {
                     Console.Clear();
+                    location = -1;
                     continue;
                 }
                 else if(answer == 'a' || answer == 'A')
                 {
+                    //call NewInTown method to create new entry
                     string[] newKid = NewInTown();
+
+                    //the first three elements will go into the list
                     string[] firstThree = new string[3];
                     firstThree[0] = newKid[0];
                     firstThree[1] = newKid[1];
                     firstThree[2] = newKid[2];
 
                     studentList.Add(firstThree);
+
+                    //the last element will go into the fvorite color ArrayList
                     favoriteColor.Add(newKid[3]);
+
+                    location = -1;
                 }
                 else
                 {
@@ -179,6 +160,7 @@ namespace GrandCircusLab9
             Console.WriteLine("Goodbye!!!\n\n(press any key...)");
             Console.ReadKey();
         }
+
 
     
         //method to pull student's info--------------------------------------------------------------------------------------------------------------
@@ -202,14 +184,14 @@ namespace GrandCircusLab9
             }
             else
             {
-                Console.WriteLine("Please only type 'hometown' or 'favorite food'!");
+                Console.WriteLine("Please only type 'hometown', 'favorite food', or 'favorite color'!");
                 return "";                
             }
 
             
         }
 
-        //-----------------------------------------------------------------------------------------------------------------------------------
+        //Method to add new person to lists-------------------------------------------------------------------------------------------------------------
         static string[] NewInTown()
         {
 
@@ -314,5 +296,43 @@ namespace GrandCircusLab9
             return newInTown;
 
         }
+
+        //Exception Checking Methd----------------------------------------------------------------------------------------------------
+        static int ErrorChecking(List<string[]> studentList)
+        {
+
+            int location = -1;
+
+            //type handling
+            try
+            {
+                location = Int32.Parse(Console.ReadLine());
+
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please only enter a number!\n\n");
+                return -1;
+            }
+
+            //range handling
+            try
+            {
+                string[] test = studentList[location - 1];
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("Student does not exist!\n\n");
+                return -1;
+            }
+
+            return location;
+            
+
+        }
+            
+
+        
+
     }
 }
