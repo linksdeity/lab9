@@ -87,8 +87,9 @@ namespace GrandCircusLab9
 
             };
 
-            //sort alphabetical the easy way
+            //sort the "easy way"
             //studentList = studentList.OrderBy(arr => arr[0]).ToList();
+            
 
 
 
@@ -98,14 +99,14 @@ namespace GrandCircusLab9
             {
 
 
-                //sort the List ot string arrays the hard way :)
+                //sort the List ot string arrays the "hard way"
                 //for each sort to the arrays, the favorite colors are sorted in the same way to stay with the person
                 string[] temp = new string[3];
                 string colorTemp = "";
 
-                for (int i = 0; i <= studentList.Count - 2; i++)
+                for (int i = 0; i < studentList.Count - 1; i++)
                 {
-                    for (int j = 0; j <= studentList.Count - 2; j++)
+                    for (int j = 0; j < studentList.Count - 1; j++)
                     {
                         if (studentList[j][0].CompareTo(studentList[j + 1][0]) > 0)
                         {
