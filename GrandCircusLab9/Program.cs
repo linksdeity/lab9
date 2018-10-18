@@ -87,12 +87,43 @@ namespace GrandCircusLab9
 
             };
 
-            
-  
+            //sort alphabetical the easy way
+            //studentList = studentList.OrderBy(arr => arr[0]).ToList();
+
+
+
             int location = -1;
 
             while (true)
             {
+
+
+                //sort the List ot string arrays the hard way :)
+                //for each sort to the arrays, the favorite colors are sorted in the same way to stay with the person
+                string[] temp = new string[3];
+                string colorTemp = "";
+
+                for (int i = 0; i <= studentList.Count - 2; i++)
+                {
+                    for (int j = 0; j <= studentList.Count - 2; j++)
+                    {
+                        if (studentList[j][0].CompareTo(studentList[j + 1][0]) > 0)
+                        {
+
+                            studentList[j + 1].CopyTo(temp, 0);
+                            colorTemp = (string)favoriteColor[j + 1];
+
+                            studentList[j].CopyTo(studentList[j + 1], 0);
+                            favoriteColor[j + 1] = favoriteColor[j];
+
+                            temp.CopyTo(studentList[j], 0);
+                            favoriteColor[j] = colorTemp;
+
+                        }
+                    }
+                }
+
+
                 while (location < 0)
                 {
                     Console.WriteLine("Welcome to class. Which student would you like to learn more about?\n(Enter a number 1-{0})", studentList.Count);
